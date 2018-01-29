@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Travel Dashboard</title>
+    <meta charset="utf-8"> {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'review/style.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="/logout" class="nav-link text-right">Logout</a>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="display-4">Hello, {{user.username}}!</h1>
+        </div>
+        <div class="row item-table">
+            <p class="lead">Your Wish List</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Added by</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in user.items.all %}
+                    <tr>
+                        <td>
+                            <a href="/item/{{item.id}}">
+                                {{item.item}}
+                            </a>
+                        </td>
+                        <td>{{item.added_by.username}}</td>
+                        <td>{{item.created_at.date}}</td>
+                        <td>
+                            {% if item.added_by.username == user.username %}
+                            <a class="nav-link" href="/delete/{{item.id}}">Delete</a>
+                            {% else %}
+                            <a class="nav-link" href="/remove/{{item.id}}">Remove from my Wishlist</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row item-table">
+            <p class="lead">Other Users' Wish List</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Added by</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in other %}
+                    <tr>
+                        <form action="/wish" method="POST">
+                            {% csrf_token %}
+                            <input value="{{item.id}}" name="item_id" type="hidden">
+                            <td>
+                                <a href="/item/{{item.id}}">
+                                    {{item.item}}
+                                </a>
+                            </td>
+                            <td>{{item.added_by.username}}</td>
+                            <td>{{item.created_at.date}}</td>
+                            <td>
+                                <input type="submit" value="Add to my wishlist" class="btn btn-outline-primary">
+                            </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="/add" class="nav-link text-right">Add Item</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

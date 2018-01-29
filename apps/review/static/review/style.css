@@ -1,0 +1,17 @@
+.container {
+    margin-top: 50px !important;
+}
+
+.messages {
+    padding-left: 0px !important;
+    list-style-type: none;
+}
+.item-table {
+    margin-top: 50px !important;
+}
+.card {
+    width: 25rem;
+}
+input[type='submit']{
+    margin-top: 20px !important;
+}

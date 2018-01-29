@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8"> {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'review/style.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-4 text-center">Welcome!</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="card-deck">
+                <div class="card">
+                    <h4 class="card-header">Register</h4>
+                    <div class="card-body">
+                        <form method="POST" action="/register">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="registration_name" type="text" class="form-control">
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "registration_name" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input name="registration_username" type="text" class="form-control"> 
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "registration_username" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "registration_user_exists" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input name="registration_password" type="password" class="form-control">
+                                <small class="form-text text-muted">
+                                    Password must be at least 8 characters
+                                </small>
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "registration_password" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Password Confirmation</label>
+                                <input name="confirm_password" type="password" class="form-control">
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "confirm_password" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Date Hired</label>
+                                <input name="date_hired" class="form-control" type="date">
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "date_hired" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            <input value="Register" type="submit" class="btn btn-outline-primary float-right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+                <div class="card">
+                    <h4 class="card-header">Login</h4>
+                    <div class="card-body">
+                        <form method="POST" action="/login">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input name="login_username" type="text" class="form-control">
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "login_false" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "login_username" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input name="login_password" type="password" class="form-control">
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "wrong_password" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                                {% if messages %} 
+                                {%for message in messages %} 
+                                {%if "login_password" in message.tags %}
+                                <div class="form-group has-danger">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {%endif%} {%endfor%} {% endif %}
+                            </div>
+                            <input value="Login" type="submit" class="btn btn-outline-primary float-right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
